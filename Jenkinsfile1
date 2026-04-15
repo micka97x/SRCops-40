@@ -1,0 +1,17 @@
+pipeline {
+    agent any
+
+    stages {
+        stage('clean project') {
+            steps {
+                sh "rm -rf SRCops-40"
+            }
+        }
+        stage('checkout scm') {
+            steps {
+                //sh "git clone https://github.com/micka97x/SRCops-40.git"
+                git branch: 'main', url: 'https://github.com/micka97x/SRCops-40.git'
+            }
+        }
+    }
+}

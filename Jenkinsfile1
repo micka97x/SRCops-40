@@ -10,7 +10,8 @@ pipeline {
         stage('checkout scm') {
             steps {
                 //sh "git clone https://github.com/micka97x/SRCops-40.git"
-                git branch: 'main', url: 'https://github.com/micka97x/SRCops-40.git'
+                //git branch: 'main', url: 'https://github.com/micka97x/SRCops-40.git'
+                git branch: 'main', credentialsId: 'user-jenkins', url: 'https://github.com/micka97x/SRCops-40.git'
             }
         }
     }

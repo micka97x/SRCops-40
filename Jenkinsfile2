@@ -1,0 +1,59 @@
+pipeline {
+    agent any
+
+    stages {
+
+        stage('checkout scm') {
+            steps {
+                //sh "git clone https://github.com/micka97x/SRCops-40.git"
+                //git branch: 'main', url: 'https://github.com/micka97x/SRCops-40.git'
+                git branch: 'main', credentialsId: 'user-jenkins', url: 'https://github.com/micka97x/SRCops-40.git'
+            }
+        }
+	stage('Install Docker') {
+            steps {
+                sh '''
+                set -e
+
+                # Update & install prerequisites
+                sudo apt update
+                sudo apt install -y ca-certificates curl
+
+                # Add Docker GPG key
+                sudo install -m 0755 -d /etc/apt/keyrings
+                sudo curl -fsSL https://download.docker.com/linux/ubuntu/gpg -o /etc/apt/keyrings/docker.asc
+                sudo chmod a+r /etc/apt/keyrings/docker.asc
+
+                # Add Docker repository
+                echo "Adding Docker repository..."
+                UBUNTU_CODENAME=$( . /etc/os-release && echo "${UBUNTU_CODENAME:-$VERSION_CODENAME}" )
+                ARCH=$(dpkg --print-architecture)
+
+                sudo tee /etc/apt/sources.list.d/docker.sources > /dev/null <<EOF
+Types: deb
+URIs: https://download.docker.com/linux/ubuntu
+Suites: ${UBUNTU_CODENAME}
+Components: stable
+Architectures: ${ARCH}
+Signed-By: /etc/apt/keyrings/docker.asc
+EOF
+
+                # Install Docker
+                sudo apt update
+                sudo apt install -y docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
+
+                # Start Docker
+                sudo systemctl start docker
+                sudo systemctl enable docker
+
+                # Permissions (attention en prod ⚠️)
+                sudo chmod 666 /var/run/docker.sock
+                sudo usermod -aG docker $USER
+
+                # Test Docker
+                sudo docker run hello-world
+                '''
+            }
+        }
+    }
+}

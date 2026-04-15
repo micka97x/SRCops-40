@@ -4,7 +4,7 @@ pipeline {
     stages {
         stage('clean project') {
             steps {
-                //sh "rm -rf SRCops-40"
+                sh "rm -rf SRCops-40"
             }
         }
         stage('checkout scm') {

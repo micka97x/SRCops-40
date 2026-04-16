@@ -4,6 +4,7 @@ ENV DEBIAN_FRONTEND=noninteractive
 
 # Mise à jour + installation des paquets nécessaires
 RUN apt-get update && apt-get install -y \
+    apache2 \
     nginx \
     openssh-server \
     iputils-ping \
@@ -16,6 +17,7 @@ RUN apt-get update && apt-get install -y \
 
 # Préparation du service SSH
 RUN mkdir -p /var/run/sshd && ssh-keygen -A
+RUN /etc/init.d/apache2 start
 
 # Configuration SSH pour autoriser root et les mots de passe
 RUN echo 'PermitRootLogin yes' >> /etc/ssh/sshd_config

@@ -11,14 +11,13 @@ pipeline {
                 sh 'docker exec contapache01 /etc/init.d/ssh status'
                 sh 'docker exec contapache01 /etc/init.d/apache2 status'
                 sh 'docker exec contapache01 /etc/init.d/ssh restart'
-
-
             }
         }
-      stage('Copy mysite dnas conteneur')
-          steps{
-            sh 'cp -rf ./mysite/ ./volumecontapache01'
-            sh 'ls /var/www/html'
-          }
+        stage('Copy mysite dnas conteneur'){
+            steps{
+                sh 'cp -rf ./mysite/ ./volumecontapache01'
+                sh 'ls /var/www/html'
+            }
+        }
     }
 }

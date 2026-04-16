@@ -5,7 +5,6 @@ ENV DEBIAN_FRONTEND=noninteractive
 # Mise à jour + installation des paquets nécessaires
 RUN apt update && apt install -y \
     apache2 \
-    nginx \
     openssh-server \
     iputils-ping \
     net-tools \

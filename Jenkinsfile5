@@ -7,7 +7,7 @@ pipeline {
                 sh 'docker rm -f contapache01'
                 sh 'docker run -d --name contapache01 --hostname contapache01 -v ./volumecontapache01:/var/www/html --network macvlan192 --ip 192.168.1.20 mon-apache2'
                 sh 'docker ps'
-                //sh 'docker exec contapache01 /etc/init.d/ssh start'
+                sh 'docker exec contapache01 /etc/init.d/ssh start'
                 sh 'docker exec contapache01 /etc/init.d/ssh status'
                 sh 'docker exec contapache01 /etc/init.d/apache2 status'
                 sh 'docker exec contapache01 /etc/init.d/ssh restart'

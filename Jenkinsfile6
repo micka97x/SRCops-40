@@ -17,7 +17,7 @@ pipeline {
         }
       stage('Copy mysite dnas conteneur')
           steps{
-            sh 'cp -rf ./mysite/ ./volumecontapache01
+            sh 'cp -rf ./mysite/ ./volumecontapache01'
             sh 'ls /var/www/html'
           }
     }

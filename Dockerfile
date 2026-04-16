@@ -3,7 +3,7 @@ FROM ubuntu:22.04
 ENV DEBIAN_FRONTEND=noninteractive
 
 # Mise à jour + installation des paquets nécessaires
-RUN apt-get update && apt-get install -y \
+RUN apt update && apt install -y \
     apache2 \
     nginx \
     openssh-server \
@@ -17,7 +17,6 @@ RUN apt-get update && apt-get install -y \
 
 # Préparation du service SSH
 RUN mkdir -p /var/run/sshd && ssh-keygen -A
-RUN /etc/init.d/apache2 start
 
 # Configuration SSH pour autoriser root et les mots de passe
 RUN echo 'PermitRootLogin yes' >> /etc/ssh/sshd_config
@@ -32,6 +31,6 @@ EXPOSE 80 22
 RUN echo "root:password" | chpasswd
 
 # Démarrage de SSH en premier plan
-CMD ["/usr/sbin/sshd", "-D"]
+CMD ["/usr/sbin/apache2", "-D"]
 
 

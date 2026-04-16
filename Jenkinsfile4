@@ -1,0 +1,17 @@
+pipeline {
+    agent any
+
+    stages {
+        stage('checkout scm') {
+            steps {
+                git branch: 'main', credentialsId: 'user-jenkins', url: 'https://github.com/micka97x/SRCops-40.git'
+            }
+        }
+        stage('macvlan192') {
+            steps {
+                sh 'docker create network -d macvlan --subnet=192.168.1.0/24 --gateway=192.168.1.254 -o parent=ens33 macvlan192'
+                sh 'docker network ls'
+            }
+        }
+    }
+}

@@ -30,6 +30,5 @@ EXPOSE 80 22
 RUN echo "root:password" | chpasswd
 
 # Démarrage de SSH en premier plan
-CMD ["/usr/sbin/apache2", "-D"]
-
+CMD ["apache2ctl", "-D", "FOREGROUND"]
 

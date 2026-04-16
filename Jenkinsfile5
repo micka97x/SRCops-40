@@ -10,7 +10,7 @@ pipeline {
                 //sh 'docker exec contapache01 /etc/init.d/ssh start'
                 sh 'docker exec contapache01 /etc/init.d/ssh status'
                 sh 'docker exec contapache01 /etc/init.d/apache2 status'
-                //sh 'docker exec contapache01 /etc/init.d/ssh restart'
+                sh 'docker exec contapache01 /etc/init.d/ssh restart'
 
 
             }
